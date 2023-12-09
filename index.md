@@ -7,4 +7,4 @@ In this project, we want to make our home or study area more comfortable, creati
 
 .
 ├── index.md    # => https://pages.github.com/Vanilaa/Vanilaa.github.io/5725
-└── 5725.md     # => https://pages.github.coecis.cornell.edu/lw584/lw584.github.io/5725.html
+└── 5725.md     # => https://pages.github.coecis.cornell.edu/lw584/lw584.github.io/5725/5725.html
