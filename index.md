@@ -50,7 +50,7 @@ To allow the user to create their own art piece with this panel, we mapped each 
 
 ##### Spotify
 Upon entering music player mode, the album cover of the current track is downloaded and stored in `album_cover.jpg`. We were careful to make sure that we do not always have to download the cover at each update of the frame, since it takes some time for download to complete. The cover is then resized and displayed on the LED panel, along with name of the track and the artist. 
-<center><img src="/img/spotify.png" width="400" height="320""></center>
+<center><img src="/img/spotify.png" width="400" height="320"></center>
 
 ##### Drawing
 To allow the user to create their own art piece with this panel, we mapped each pixel drawn on the piTFT screens to a position on the LED screen, store the RGB values in a 2D matrix, loop through the matrix and set each Pixel individually.
