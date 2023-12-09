@@ -18,7 +18,23 @@ We followed modular design principles throughout the project.
 
 ### LED Panel
 
+#### Wiring
+
+#### Installing library and running provided examples
+
+#### Creating each "page" individually
+
+#### Accessing real-time weather information with API
+
+
+
 ### TFT Screen
+
+#### Installing and testing Spotipy library
+
+#### creating user interfaces with Pygame
+
+
 
 
 
