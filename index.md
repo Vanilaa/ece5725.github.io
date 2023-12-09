@@ -102,12 +102,15 @@ Mainly, we added a config file in which we specify the Spotify account logins an
 
 ## Conclusion
 
+We successfully achieved 90% of the functionality we proposed in our proposal and substituted the 10% with functionalities we thought would be more fun to implement as we worked on it. We were able to solve most of the bugs and we pushed through the project even when we lost all of our files when crontab messed up. 
+We found out that due to Spotify’s security policy, we won’t be able to use Crontab, since it requires Spotify authorization after each reboot or shutdown. We also learned more about how to restore files if Crontab didn’t function properly, and always backup or at least download our files before reboot. 
+
 
 ## Future Work
-
-functionality to save user's artwork
-
-Scrolling song title and artist name when they are too long. 
+There are still a lot to do if we want to improve this project.
+1. We can clean up the wires and build a display case for it
+2. Add the functionality to save user's artwork
+3. Scrolling song title and artist name when they are too long. 
 
 ## Budget
 
