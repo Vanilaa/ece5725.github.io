@@ -30,7 +30,7 @@ In terms of the technical components involved in implementation, we want to make
 | RPi          | 1                 | 0     |
 | TFT screen   | 1                 | 0     |
 | Button       | 1                 | 0     |
-| LED Panel    | 2 (missing panel) | 0, Thanks to Prof. Skovira|
+| LED Panel    | 2                 | 0     |
 | 5V 4A adapter| 1                 | 0     |
 | Jump wires   | a handful         | 0     |
 ## Reference
