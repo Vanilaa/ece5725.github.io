@@ -128,16 +128,13 @@ There are still a lot to do if we want to improve this project.
 
 ### Libraries
 
-pygame
-
-spotipy
-
-spotifyd
-
-rpi-rgb-led-marix
+1. pygame
+2. spotipy
+3. spotifyd
+4. rpi-rgb-led-marix
 
 ### Tutorials/Guides
-
+These are linked though out the webpage for seamless reading.
 
 
 ### Code Appendix
