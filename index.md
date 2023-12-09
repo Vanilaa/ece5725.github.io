@@ -25,7 +25,13 @@ In terms of the technical components involved in implementation, we want to make
 ## Future Work
 
 ## Budget
-
+| Part         | Quantity          | Cost  |
+|:-------------|:------------------|:------|
+| RPi          | 1                 | 0     |
+| TFT screen   | 1                 | 0     |
+| Button       | 1                 | 0     |
+| LED Panel    | 2 (missing panel) | 60, covered by Prof. Skovira|
+| Jump wires   | a handful         | 0     |
 ## Reference
 
 ### Code Appendix
