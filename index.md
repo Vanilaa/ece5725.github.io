@@ -58,6 +58,8 @@ functionality to save user's artwork
 | LED Panel    | 2                 | 0     |
 | 5V 4A adapter| 1                 | 0     |
 | Jump wires   | a handful         | 0     |
+
+
 ## Reference
 
 ### Code Appendix
