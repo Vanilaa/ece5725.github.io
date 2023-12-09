@@ -15,15 +15,25 @@ In terms of the technical components involved in implementation, we want to make
 ## Design and Testing
 
 We followed modular design principles throughout the project. 
-<center><img src="/img/page.jpg" width="650" height="340"></center>
+<center><img src="/img/page.jpg" width="850" height="340"></center>
 
 ### LED Panel
 
 #### Wiring
 
-To wire up the LED panel to Raspberry Pi, we referenced the pinouts decribed in Adafruit's [RGB matrix bonnet tutorial](https://learn.adafruit.com/adafruit-rgb-matrix-bonnet-for-raspberry-pi/pinouts). 
+To wire up the LED panel to Raspberry Pi, we referenced the pinouts described in Adafruit's [RGB matrix bonnet tutorial](https://learn.adafruit.com/adafruit-rgb-matrix-bonnet-for-raspberry-pi/pinouts). 
 
-
+| left               | right              |
+| ------------------ | ------------------ |
+| LED# - Func - GPIO | LED# - Func - GPIO |
+| 1-R1-5             | 9-G1-13            |
+| 2-B1-6             | 10-GND-GND         |
+| 3-R2-12            | 11-G2-16           |
+| 4-B2-23            | 12-E-24            |
+| 5-A-22             | 13-B-26            |
+| 6-C-27             | 14-D-20            |
+| 7-CLK-17           | 15-LAT-21          |
+| 8-OE-4             | 16-GND-GND         |
 
 We also check to make sure that the GPIO pins used for the LED panel does not overlap pins used by TFT. It does turnout that the GPIO pins connected to the buttons on the TFT screen is used by the LED panel. Therefore we incorporated an external button to function as the quit button. 
 
@@ -37,7 +47,9 @@ We then study the examples that came with the library to understand the flow of 
 
 #### Accessing real-time weather information with API
 
+For real time weather info, we decided to use Open Weather API where it allows us to make http request hourly to get accurate weather information.
 
+We store the weather info as a JSON file since it's really long and detailed. We only needed a few information like weather condition, temperature, and humidity. Therefore, we can index into the JSON, pull the information out and display it on top of the animation frames. 
 
 ### TFT Screen
 
@@ -57,7 +69,9 @@ We then study the examples that came with the library to understand the flow of 
 
 #### Spotifyd
 
-turn Raspberry Pi device into a device on your Spotify account
+We also followed a Youtube tutorial on [how to turn Raspberry Pi device into a device on Spotify account](https://www.youtube.com/watch?v=GGXJuzSise4)
+
+Mainly, we added a config file in which we specify the Spotify account logins and added the device we wanted to use to play music which is RPi. 
 
 
 
