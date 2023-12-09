@@ -56,7 +56,7 @@ To allow the user to create their own art piece with this panel, we mapped each 
 
 
 ##### Weather
-
+<center><img src="/img/weather.png" width="850" height="340"></center>
 
 #### Accessing real-time weather information with API
 
