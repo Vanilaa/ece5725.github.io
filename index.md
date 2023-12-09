@@ -642,14 +642,14 @@ import requests
 import os
 
 #set environment variables
-os.system("export CLIENT_ID=e522f9c5a6c0487c9e17600b3dc47473")
-os.system("export CLIENT_SECRET=cdee41afeb544e5688eaceaf45ad7781")
+os.system("export CLIENT_ID=CLIENT_ID_PLACEHOLDER")
+os.system("export CLIENT_SECRET=CLIENT_SECRET_PLACEHOLDER")
 os.system("export REDIRECT_URI=http://localhost:8080")
 
 scope = "streaming,user-read-playback-state,user-library-read,user-modify-playback-state,app-remote-control"
 
-client_id = "e522f9c5a6c0487c9e17600b3dc47473"
-client_secret = "cdee41afeb544e5688eaceaf45ad7781"
+client_id = "CLIENT_ID_PLACEHOLDER"
+client_secret = "CLIENT_SECRET_PLACEHOLDER"
 redirect_url = "http://localhost:8080"
 
 def spotify_init():
