@@ -1,4 +1,4 @@
-# Welcome to Dashboard Decor Webpage
+# Dashboard Decor
 
 This project is managed by Yaqi (yg298) and Alina (lw584) during Fall 2023 and demonstrate on 12/7/2023.
 <center><img src="/img/grouppic.jpg" width="300" height="400"></center>
