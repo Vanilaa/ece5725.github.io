@@ -110,14 +110,15 @@ There are still a lot to do if we want to improve this project.
 
 ## Budget
 
-| Part         | Quantity          | Cost  |
-|:-------------|:------------------|:------|
-| RPi          | 1                 | 0     |
-| TFT screen   | 1                 | 0     |
-| Button       | 1                 | 0     |
-| LED Panel    | 2                 | 0     |
-| 5V 4A adapter| 1                 | 0     |
-| Jump wires   | a handful         | 0     |
+| Part         | Quantity          | Our Cost  | Actual Cost|
+|:-------------|:------------------|:----------|:-----------|
+| RPi          | 1                 | 0         | 45        |
+| TFT screen   | 1                 | 0         | 45        |
+| Button       | 1                 | 0         | 0.5        |
+| LED Panel    | 2                 | 0         | 45        |
+| 5V 4A adapter| 1                 | 0         | 0        |
+| Jump wires   | a handful         | 0         | 0        |
+Total: $135.5
 
 
 ## Reference
