@@ -118,7 +118,7 @@ rpi-rgb-led-marix
 
 
 ### Code Appendix
-
+Below is our master code where we integrated everything.
 ```python
 ################### Libraries ###########################
 from samplebase import SampleBase
@@ -180,6 +180,7 @@ is_music_player = False
 is_scribble = False
 is_weather = False
 playing = False
+drawing = True
 brush_color = WHITE
 
 ################### TFT ###########################
@@ -207,9 +208,13 @@ weather_icon = pygame.image.load("img/weather_icon.png")
 weather_icon = pygame.transform.scale(weather_icon, (50,50))
 weather_rect = weather_icon.get_rect().move(220,120)
 
-home_icon = pygame.image.load("img/home-icon.png")
+home_icon = pygame.image.load("img/home_icon.png")
 home_icon = pygame.transform.scale(home_icon, (50,50))
 home_rect = home_icon.get_rect().move(40,0)
+
+clear_icon = pygame.image.load("img/clear_icon.png")
+clear_icon = pygame.transform.scale(clear_icon, (50,50))
+clear_rect = clear_icon.get_rect().move(40,80)
 
 pause_rect_1 = pygame.Rect(148,108,10,30)
 pause_rect_2 = pygame.Rect(163,108,10,30)
@@ -280,7 +285,7 @@ scribble_surface = pygame.Surface((320,240))
 scribble_surface.blit(pallete_surface, (0, 0))
 scribble_surface.blit(draw_surface, (40, 0))
 scribble_surface.blit(home_icon, (0,0))
-
+scribble_surface.blit(clear_icon, (40,80))
 print("finished setup pygame")
 
 save_scribble = []
@@ -300,11 +305,11 @@ GPIO.add_event_detect(19, GPIO.FALLING, callback = GPIO19_callback, bouncetime=3
 
         
 def map_led_matrix(canvas, led_matrix):
-    canvas.Clear()
+    # canvas.Clear()
     for i in range(64):
         for j in range(32):
             r,g,b = led_matrix[i][j]
-            canvas.SetPixel(64,32,r,g,b)
+            canvas.SetPixel(i,j,r,g,b)
 
 ################# weather page #####################
 f = open('weather.json')
@@ -392,19 +397,22 @@ class Dashboard(SampleBase):
         # im = Image.open("album_cover.jpg")
         # album_cover = im.resize((26,26),Image.ANTIALIAS).convert("RGB")
         
-        album_cover = update_album_cover(sp)
-        track_name, artist = my_spotify.get_curr_track_info()
+
         
         start_time = time.time()
 
         global is_home
         global is_music_player
         global is_scribble
+        global is_weather
         global drawing
         global sp
         global code_run
         global playing
+        global brush_color
         
+        album_cover = update_album_cover(sp)
+        track_name, artist = my_spotify.get_curr_track_info(sp)
         print("running while loop")
 
         while(code_run):
@@ -420,10 +428,10 @@ class Dashboard(SampleBase):
                         img.save("output.png")
                         pygame.quit()
                         sys.exit()
-                        quit()
                     
                     if event.type == pygame.MOUSEBUTTONUP:
                         mouse_pos = pygame.mouse.get_pos()
+
                         if is_home:
                             if spotify_rect.collidepoint(mouse_pos):
                                 is_music_player = True
@@ -431,15 +439,17 @@ class Dashboard(SampleBase):
                                 is_scribble = False
                                 
                                 album_cover = update_album_cover(sp)
-                                track_name, artist = my_spotify.get_curr_track_info()
-
-                                # print("music")
+                                track_name, artist = my_spotify.get_curr_track_info(sp)
 
                             elif scribble_rect.collidepoint(mouse_pos):
                                 is_music_player = False
                                 is_home = False
                                 is_scribble = True
-                                # print("scribble")
+                            
+                            elif weather_rect.collidepoint(mouse_pos):
+                                is_home = False
+                                is_weather = True
+                                print("detected is weather")
 
                         elif is_music_player:
                             if (play_button.collidepoint(mouse_pos)):
@@ -459,20 +469,31 @@ class Dashboard(SampleBase):
                                 playing = True
                                 # my_spotify.download_curr_album_cover(sp)
                                 album_cover = update_album_cover(sp)
-                                track_name, artist = my_spotify.get_curr_track_info()
+                                track_name, artist = my_spotify.get_curr_track_info(sp)
 
 
                             elif (prev_track_rect_1.collidepoint(mouse_pos) or prev_track_rect_2.collidepoint(mouse_pos)):
                                 sp.next_track()
                                 playing = True
-                                my_spotify.download_curr_album_cover(sp)
+                                # my_spotify.download_curr_album_cover(sp)
                                 album_cover = update_album_cover(sp)
-                                track_name, artist = my_spotify.get_curr_track_info()
+                                track_name, artist = my_spotify.get_curr_track_info(sp)
 
                         elif is_scribble:
                             if home_rect.collidepoint(mouse_pos):
                                 is_home = True
                                 is_scribble = False
+                            elif clear_rect.collidepoint(mouse_pos):
+                                canvas.Clear()
+                                for i in range(64):
+                                    for j in range(32):
+                                        save_scribble[i][j] = BLACK
+                                draw_surface.fill(BLACK)
+                                screen.blit(draw_surface, (0,0))
+                                screen.blit(pallete_surface,(0,0))
+                                screen.blit(home_icon, (40,0))
+                                screen.blit(clear_icon, (40,80))
+                                pygame.display.flip()
                             if (red_circle.collidepoint(mouse_pos)):
                                 brush_color = RED
                             elif (green_circle.collidepoint(mouse_pos)):
@@ -487,8 +508,37 @@ class Dashboard(SampleBase):
                                 brush_color = PURPLE
                             else: 
                                 drawing = False
+                        
+                        elif is_weather:
+                            if home_rect.collidepoint(mouse_pos):
+                                is_home = True
+                                is_weather = False
+
                     elif event.type == pygame.MOUSEBUTTONDOWN and is_scribble:
                         drawing = True
+
+################################ TFT Screen ########################################
+                if is_music_player:
+                    draw_music_player()
+                elif is_home:
+                    draw_home()
+                elif is_scribble:
+                    screen.fill(BLACK)
+                    if drawing:
+                        mouse_pos = pygame.mouse.get_pos()
+                        save_scribble[int(mouse_pos[0]/5)][int(mouse_pos[1]/7.5)] = brush_color
+                        draw_surface.set_at(mouse_pos, brush_color)
+                    screen.blit(draw_surface, (0, 0))
+                    screen.blit(pallete_surface, (0, 0))
+                    screen.blit(home_icon, (40,0))
+                    screen.blit(clear_icon, (40,80))
+                    pygame.display.flip()
+
+                elif is_weather:
+                    screen.fill(BLACK)
+                    screen.blit(home_icon, (40,0))
+                    pygame.display.flip()
+
 ##################################################################################
                 if(is_home):
                     time_now = datetime.now()
@@ -506,59 +556,42 @@ class Dashboard(SampleBase):
                     else:
                         greeting = "Good night"
 
-                    bear = Image.open("bear.png")
+                    bear = Image.open("img/bear.png")
                     bear = bear.resize((32,32),Image.ANTIALIAS).convert("RGB")
                     
                     canvas.Clear()
-                    canvas.setImage(bear, 32, 0)
-                    graphics.DrawText(canvas, font, 0, 10, led_white, curr_date)
-                    graphics.DrawText(canvas, font, 0, 20, led_white, curr_time)
-                    graphics.DrawText(canvas, font, 0, 20, led_white, greeting)
+                    canvas.SetImage(bear, 32, 0)
+                    graphics.DrawText(canvas, font, 2, 10, led_white, curr_date)
+                    graphics.DrawText(canvas, font, 2, 20, led_white, curr_time)
+                    graphics.DrawText(canvas, font, 2, 30, led_white, greeting)
 
                 elif is_music_player:
-                    #place holders
+                    canvas.Clear()
                     canvas.SetImage(album_cover, 3,3)
-                    graphics.DrawText(canvas, font, 28, 10, led_white, track_name)    
-                    graphics.DrawText(canvas, font, 28, 20, led_white, artist)     
+                    graphics.DrawText(canvas, font, 30, 10, led_white, track_name)    
+                    graphics.DrawText(canvas, font, 30, 20, led_white, artist)     
 
                 elif is_scribble:
+                    canvas.Clear()
                     map_led_matrix(canvas, save_scribble)
 
                 elif is_weather:
                     canvas.Clear()
-                    while True:
-                        for frame in gif:
-                            if not is_weather:
-                                break
-                            # canvas.SetImage(image, 0,15)
-                            canvas.SetImage(frame, 0,0)
-                            graphics.DrawText(canvas, font, 0, 18, led_white, current_weather)
-                            graphics.DrawText(canvas, font, 0, 25, led_white, hum)
-                            graphics.DrawText(canvas, font, 0, 31, led_white, sun_condition)
-                
-                            time.sleep(0.1)
                                     
-################################ TFT Screen ########################################
-                if is_music_player:
-                    draw_music_player()
-                elif is_home:
-                    draw_home()
-                elif is_scribble:
-                    # draw_scribble()
-                    if drawing:
-                        mouse_pos = pygame.mouse.get_pos()
-                        save_scribble[int(mouse_pos[0]/5)][int(mouse_pos[1]/7.5)] = brush_color
-                        draw_surface.set_at(mouse_pos, brush_color)
-                    screen.blit(draw_surface, (0, 0))
-                    screen.blit(pallete_surface, (0, 0))
-                    screen.blit(home_icon, (40,0))
-                    pygame.display.flip()
+                    for frame in gif[0:10]:
+                        if not is_weather:
+                            break
+                        # canvas.SetImage(image, 0,15)
+                        canvas.SetImage(frame, 0,0)
+                        graphics.DrawText(canvas, font, 2, 18, led_white, current_weather)
+                        graphics.DrawText(canvas, font, 2, 25, led_white, hum)
+                        graphics.DrawText(canvas, font, 2, 31, led_white, sun_condition)
+            
+                        time.sleep(0.1)
+                                    
+
 
                 time.sleep(0.05)
-            # except: 
-            #     pygame.quit()
-            #     quit()   
-                
                 
             except KeyboardInterrupt:
                 print("keyboard interrupt")
@@ -582,4 +615,72 @@ if __name__ == "__main__":
 ```
 
 
+Below is the Spotify API code where we defined our own functions to help us download album cover, switch between songs, and pulling song infos.
 
+``` python
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+import json
+import requests
+import os
+
+#set environment variables
+os.system("export CLIENT_ID=e522f9c5a6c0487c9e17600b3dc47473")
+os.system("export CLIENT_SECRET=cdee41afeb544e5688eaceaf45ad7781")
+os.system("export REDIRECT_URI=http://localhost:8080")
+
+scope = "streaming,user-read-playback-state,user-library-read,user-modify-playback-state,app-remote-control"
+
+client_id = "e522f9c5a6c0487c9e17600b3dc47473"
+client_secret = "cdee41afeb544e5688eaceaf45ad7781"
+redirect_url = "http://localhost:8080"
+
+def spotify_init():
+    scope = "streaming,user-read-playback-state,user-library-read,user-modify-playback-state,app-remote-control"
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, client_id = client_id, client_secret = client_secret, redirect_uri = redirect_url, open_browser=False))
+    device_id = sp.devices()["devices"][0]["id"]
+    sp.transfer_playback(device_id)
+    sp.pause_playback()
+    return sp
+
+
+def add_playlist_to_queue(sp):
+    playlist = sp.current_user_playlists(limit = 50, offset = 0)["items"][0]
+    play_list_id = playlist["id"]
+    items = sp.playlist_items(play_list_id)
+    tracks = items["items"]
+    num_songs = len(tracks)
+    first_id = tracks[0]["track"]["id"]
+    for track in tracks:
+        track_id = track["track"]["id"]
+        sp.add_to_queue(track_id)
+    # while(sp.queue()["currently_playing"]["id"] != first_id):
+    #     sp.next_track()
+    
+    try:
+        sp.start_playback()
+    except:
+        pass
+    download_curr_album_cover(sp)
+    # sp.seek_track(0)
+
+
+def download_curr_album_cover(sp):
+    album_cover_url = sp.current_playback()["item"]["album"]["images"][-1]["url"]
+    response = requests.get(album_cover_url)
+    with open("album_cover.jpg", 'wb') as f:
+        f.write(response.content)
+
+
+
+def get_curr_track_info(sp):
+    curr_playback = sp.current_playback()
+    artist = curr_playback["item"]["artists"][0]["name"]
+    track_name = curr_playback["item"]["name"]
+    return track_name, artist
+
+# print(json.dumps(sp.current_playback(), indent = 4))
+sp = spotify_init()
+add_playlist_to_queue(sp)
+print(get_curr_track_info(sp))
+```
