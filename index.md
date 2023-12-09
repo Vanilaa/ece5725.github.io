@@ -15,14 +15,25 @@ In terms of the technical components involved in implementation, we want to make
 ## Design and Testing
 
 We followed modular design principles throughout the project. 
+<center><img src="/img/page.jpg" width="650" height="340"></center>
 
 ### LED Panel
 
 #### Wiring
 
+To wire up the LED panel to Raspberry Pi, we referenced the pinouts decribed in Adafruit's [RGB matrix bonnet tutorial](https://learn.adafruit.com/adafruit-rgb-matrix-bonnet-for-raspberry-pi/pinouts). 
+
+
+
+We also check to make sure that the GPIO pins used for the LED panel does not overlap pins used by TFT. It does turnout that the GPIO pins connected to the buttons on the TFT screen is used by the LED panel. Therefore we incorporated an external button to function as the quit button. 
+
 #### Installing library and running provided examples
 
-#### Creating each "page" individually
+We took advantage of hzeller's [Raspberry Pi RGB matrix library](https://github.com/hzeller/rpi-rgb-led-matrix) to control the LED panel with Raspberry Pi. After installing the library, we tried running a few example, with flags `--led-cols=64 --led-rows=32`We observed some issues, where the bottom half of the panel does not light up at all, and we couldn't really tell what is on the top half, which looks like it is glitching. So we went back to double check our wiring and configuration. We found a misplaced wire for the matrix E pin. Plugging it in the right place gives us pixels lighting up on the bottom half. We then found suggestions in the tutorial that with Pi 4, the matrix control speed needs to be dialed back slightly. We changed the `--led-slowdown-gpio` setting to 4, which fixed the glitches. 
+
+#### Creating views individually
+
+We then study the examples that came with the library to understand the flow of projecting an image to the LED panel. 
 
 #### Accessing real-time weather information with API
 
@@ -32,9 +43,21 @@ We followed modular design principles throughout the project.
 
 #### Installing and testing Spotipy library
 
-#### creating user interfaces with Pygame
+#### Creating user interfaces with Pygame
+
+##### Home Screen
+
+##### Drawing
+
+##### Spotify
 
 
+
+### Other
+
+#### Spotifyd
+
+turn Raspberry Pi device into a device on your Spotify account
 
 
 
@@ -62,7 +85,22 @@ functionality to save user's artwork
 
 ## Reference
 
+### Libraries
+
+pygame
+
+spotipy
+
+spotifyd
+
+rpi-rgb-led-marix
+
+### Tutorials/Guides
+
+
+
 ### Code Appendix
+
 ```python
 ################### Libraries ###########################
 from samplebase import SampleBase
