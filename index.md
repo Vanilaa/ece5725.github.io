@@ -15,7 +15,7 @@ In terms of the technical components involved in implementation, we want to make
 ## Design and Testing
 
 We followed modular design principles throughout the project. 
-<center><img src="/img/page.jpg" width="500" height="340"></center>
+<center><img src="/img/page.jpg" width="650" height="340"></center>
 
 ### LED Panel
 
