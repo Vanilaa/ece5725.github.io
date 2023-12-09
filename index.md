@@ -43,7 +43,9 @@ We took advantage of hzeller's [Raspberry Pi RGB matrix library](https://github.
 
 #### Creating views individually
 
-We then study the examples that came with the library to understand the flow of projecting an image to the LED panel. 
+We study the examples that came with the library to understand the flow of projecting an image to the LED panel. There are three steps in preparing an image: importing, resizing, and converting format to RGB. We also explored playing animations on the panel by importing gif, process each frame, adding all the frames to a list, loop over the frames and display them on the panel one after the other. We also discovered that the library came with an abundant set of fonts available for use, which allow us to display text on the LED panel.
+
+To allow the user to create their own art piece with this panel, we mapped each pixel drawn on the piTFT screens to a position on the LED screen, store the RGB values in a 2D matrix, loop through the matrix and set each Pixel individually. 
 
 #### Accessing real-time weather information with API
 
@@ -84,6 +86,8 @@ Mainly, we added a config file in which we specify the Spotify account logins an
 ## Future Work
 
 functionality to save user's artwork
+
+Scrolling song title and artist name when they are too long. 
 
 ## Budget
 
