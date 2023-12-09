@@ -47,21 +47,40 @@ We study the examples that came with the library to understand the flow of proje
 
 To allow the user to create their own art piece with this panel, we mapped each pixel drawn on the piTFT screens to a position on the LED screen, store the RGB values in a 2D matrix, loop through the matrix and set each Pixel individually. 
 
+##### Spotify
+Upon entering music player mode, the album cover of the current track is downloaded and stored in `album_cover.jpg`. We were careful to make sure that we do not always have to download the cover at each update of the frame, since it takes some time for download to complete. The cover is then resized and displayed on the LED panel, along with name of the track and the artist. 
+
+##### Drawing
+To allow the user to create their own art piece with this panel, we mapped each pixel drawn on the piTFT screens to a position on the LED screen, store the RGB values in a 2D matrix, loop through the matrix and set each Pixel individually.
+
+
+
+##### Weather
+
+
 #### Accessing real-time weather information with API
 
-For real time weather info, we decided to use Open Weather API where it allows us to make http request hourly to get accurate weather information.
+For real-time weather info, we decided to use Open Weather API which allows us to make HTTP requests hourly to get accurate weather information.
 
-We store the weather info as a JSON file since it's really long and detailed. We only needed a few information like weather condition, temperature, and humidity. Therefore, we can index into the JSON, pull the information out and display it on top of the animation frames. 
+We store the weather info as a JSON file since it's long and detailed. We only needed a few information like weather condition, temperature, and humidity. Therefore, we can index into the JSON, pull the information out from the JSON file, and display it on top of the animation frames.
 
 ### TFT Screen
 
 #### Installing and testing Spotipy library
+The [Spotipy](https://spotipy.readthedocs.io/en/2.22.1/) library is a lightweight python library for the [Spotify Web API](https://developer.spotify.com/documentation/web-api). It has the capability of accessing authorized user’s playlist, devices and controlling playback on the devices by sending http requests and receiving http responses. 
+We followed the example on Spotipy documentation and first created and testsed a simple python script to control playback on our personal device through command line. We then organized the code into functions and created our own `my_spotify` library. The library has four functions: initialize, download album cover, add playlist to queue, and fetch current playback’s track title and artist. 
+
 
 #### Creating user interfaces with Pygame
 
 ##### Home Screen
 
+Three icons are centered on the TFT home page: spotify, draw, and weather. Each icon will direct the user to the corresponding page. For implementation, we created these Pygame rects and detected mouse collision with the rects. After switching to the other screen, we will use the pygame’s clear function to clean it.
+
 ##### Drawing
+
+For the drawing screen, we want to have a color palette screen where the user can change the color of the paintbrush and a drawing area. Therefore we have 2 main Pygame screens, the color palette consists of the color circles which detects mouse collision to determine which color the user is trying to change to. The drawing screen will blit all the pixel user drawn on it and append the pixel’s coordinate to an RGB matrix which will be mapped to the LED screen at the same time. Therefore, both TFT and LED screens will be able to see the drawing live-time. 
+
 
 ##### Spotify
 
