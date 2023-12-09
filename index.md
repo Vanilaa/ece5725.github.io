@@ -83,11 +83,6 @@ Three icons are centered on the TFT home page: spotify, draw, and weather. Each 
 
 For the drawing screen, we want to have a color palette screen where the user can change the color of the paintbrush and a drawing area. Therefore we have 2 main Pygame screens, the color palette consists of the color circles which detects mouse collision to determine which color the user is trying to change to. The drawing screen will blit all the pixel user drawn on it and append the pixel’s coordinate to an RGB matrix which will be mapped to the LED screen at the same time. Therefore, both TFT and LED screens will be able to see the drawing live-time. 
 
-
-##### Spotify
-
-
-
 ### Other
 
 #### Spotifyd
