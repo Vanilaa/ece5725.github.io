@@ -10,3 +10,28 @@ In this project, we want to make our home or study area more comfortable, creati
 We imagine this dashboard to be like a small widget where the user will be able to check for the current date, time, a short greeting based on the time of the day, current weather conditions, temperature/humidity, and sunrise/sunset time. For other interactive functions, we want it to be able to connect to the user’s Spotify account so it can control the playlist, skip back and forth in the playlist, and display the album cover. We also want to add a game to the dashboard, at first we wanted to implement Dianasour’s Jumping game in Google, but the LED panel’s pitch is too large and the animation on it doesn’t look very good, so we pivoted to a drawing game in which the player can either play with a friend, or it can be single player and just let the LED display the artwork user draws.
 
 In terms of the technical components involved in implementation, we want to make use of the PyGame library and TFT screen as we have learned during this semester’s lab sections. Those hardware and software can be customized in so many different ways, giving us many options of how to use them. In addition, we want to try out some additional hardware like LED Panel and learn to access external APIs for real-time data and HTTP requests.
+
+
+## Design and Testing
+
+
+
+## Result
+<iframe width="500" height="295" src="https://www.youtube.com/embed/H2vN3ZfRmyE?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+## Conclusion
+
+
+## Future Work
+
+## Budget
+
+## Reference
+
+### Code Appendix
+'''python
+def
+'''
+
+
+
