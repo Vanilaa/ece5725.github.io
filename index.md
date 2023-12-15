@@ -1,11 +1,11 @@
 # Dashboard Decor
 
 This project is managed by Yaqi (yg298) and Alina (lw584) during Fall 2023 and demonstrate on 12/7/2023.
-<center><img src="/img/grouppic.jpg" width="300" height="400"></center>
+<center><img src="img/grouppic.jpg" width="300" height="400"></center>
 
 ## Objective
 In this project, we want to make our home or study area more comfortable, creating this safe space where we would love to study or live in, therefore we came up with the idea of creating a desktop gadget. We envision this to be a versatile, fun, and aesthetic decor for someone who is into Pixel art. This dashboard will combine different functionalities like controlling Spotify song playback, playing drawing and guessing game, entering Zen mode with weather forecast, and displaying cute animations
-<center><img src="/img/welcome.png" width="400" height="320"></center>
+<center><img src="img/welcome.png" width="400" height="320"></center>
 
 ## Introduction
 We imagine this dashboard to be like a small widget where the user will be able to check for the current date, time, a short greeting based on the time of the day, current weather conditions, temperature/humidity, and sunrise/sunset time. For other interactive functions, we want it to be able to connect to the user’s Spotify account so it can control the playlist, skip back and forth in the playlist, and display the album cover. We also want to add a game to the dashboard, at first we wanted to implement Dianasour’s Jumping game in Google, but the LED panel’s pitch is too large and the animation on it doesn’t look very good, so we pivoted to a drawing game in which the player can either play with a friend, or it can be single player and just let the LED display the artwork user draws.
@@ -16,7 +16,7 @@ In terms of the technical components involved in implementation, we want to make
 ## Design and Testing
 
 We followed modular design principles throughout the project. 
-<center><img src="/img/page.jpg" width="850" height="340"></center>
+<center><img src="img/page.jpg" width="850" height="340"></center>
 
 ### LED Panel
 
@@ -50,11 +50,11 @@ To allow the user to create their own art piece with this panel, we mapped each 
 
 ##### Spotify
 Upon entering music player mode, the album cover of the current track is downloaded and stored in `album_cover.jpg`. We were careful to make sure that we do not always have to download the cover at each update of the frame, since it takes some time for download to complete. The cover is then resized and displayed on the LED panel, along with name of the track and the artist. 
-<center><img src="/img/spotify.png" width="400" height="320"></center>
+<center><img src="img/spotify.png" width="400" height="320"></center>
 
 ##### Drawing
 To allow the user to create their own art piece with this panel, we mapped each pixel drawn on the piTFT screens to a position on the LED screen, store the RGB values in a 2D matrix, loop through the matrix and set each Pixel individually.
-<center><img src="/img/draw.JPG" width="300" height="420"></center>
+<center><img src="img/draw.JPG" width="300" height="420"></center>
 
 ##### Weather
 The weather screen displays a weather animation which is done by isolating each frame of a weather gif and displaying them in a loop to create the animated effect. On top of the weather animation, we will display the weather information obtained by requesting from an Open API, described below.
@@ -64,7 +64,7 @@ The weather screen displays a weather animation which is done by isolating each 
 For real-time weather info, we decided to use Open Weather API which allows us to make HTTP requests hourly to get accurate weather information.
 
 We store the weather info as a JSON file since it's long and detailed. We only needed a few information like weather condition, temperature, and humidity. Therefore, we can index into the JSON, pull the information out from the JSON file, and display it on top of the animation frames.
-<center><img src="/img/weather.png" width="400" height="320"></center>
+<center><img src="img/weather.png" width="400" height="320"></center>
 
 ### TFT Screen
 
