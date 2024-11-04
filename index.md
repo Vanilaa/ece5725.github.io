@@ -94,7 +94,7 @@ Mainly, we added a config file in which we specify the Spotify account logins an
 
 
 ## Result
-<iframe width="500" height="295" src="https://www.youtube.com/embed/eSPaAW63JxDM?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="500" height="295" src="https://www.youtube.com/embed/SPaAW63JxDM?si=T1H66s3DqAr8YQQ0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Conclusion
 
